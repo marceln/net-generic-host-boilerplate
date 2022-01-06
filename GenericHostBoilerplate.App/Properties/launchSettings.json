@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "GenericHostBoilerplate.App": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
