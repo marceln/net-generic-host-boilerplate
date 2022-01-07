@@ -16,9 +16,11 @@ static IHostBuilder CreateHostBuilder(string[] args) =>
             services.AddTransient<IExampleService, ExampleService>();
             services.AddHostedService<HostedService>();
         })
-        .ConfigureAppConfiguration(options =>
+        .ConfigureAppConfiguration((hostingContext, config) =>
         {
-            options.AddEnvironmentVariables();
-            options.AddJsonFile("appsettings.json", optional: false);
-            options.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")}.json", optional: false);
+            var env = hostingContext.HostingEnvironment;
+
+            config.AddEnvironmentVariables();
+            config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: false, reloadOnChange: true);
         });
